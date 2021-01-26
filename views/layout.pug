@@ -1,0 +1,47 @@
+doctype html
+block basetag
+  -var base=".";
+
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    
+    title #{title} | Tic-Tac Toe Game
+
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/pubsub-js/1.7.0/pubsub.min.js"></script>
+
+    //- jquery
+    script(src="https://code.jquery.com/jquery-3.3.1.min.js")
+    
+    //- boostrap
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+    
+    link(rel="stylesheet", href=base + "/stylesheets/jumbotron-narrow.css")
+    link(rel='stylesheet', href=base + '/stylesheets/style.css')
+
+    script.
+      var base= "#{base}";
+
+    block scripts
+  body
+    .container
+      .header.clearfix
+        nav
+          ul.nav.nav-pills.pull-right
+            if user
+              li(role="presentation", class= title === 'Dashboard' ? 'active' : undefined): a(href=base + "/dashboard") Dashboard
+              li(role="presentation"): a(href=base + "/logout") Logout
+            else
+              li(role="presentation", class= title === 'Login' ? 'active': undefined): a(href=base + "/login") Login
+
+        h3.text-muted: a(href=base + (user ? "/dashboard" : '/login'))  Tic Tac Toe
+      
+      if flash
+        .alert.alert-danger
+            p(style="font-size: initial")= flash
+
+      block content
